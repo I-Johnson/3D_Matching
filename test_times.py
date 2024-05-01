@@ -32,20 +32,43 @@ def random_M(r_seed: int, N: int, m: int):
     return M
 
 def solve_time(M, N, m):
+    '''
     # Timing Backtracking
     start_time = time.time()
     solver = MatchingSolver(M,N)
     solver.find_solutions()
     seconds_elapsed = time.time() - start_time
-    print("Backtracking: N =",N, "m=", m, "took", seconds_elapsed, "seconds or", seconds_elapsed/60, "minutes.")
+    ret1 = f"Backtracking: N = {N}, m = {m} took {seconds_elapsed} seconds, or {seconds_elapsed/60} minutes"
+    '''
+
+    #Timing Greedy
+    start_time = time.time()
+    sol = greedy_approx(M)
+    end_time = time.time()
+    print(sum(sol) / N)
+    seconds_elapsed = end_time - start_time
+    #print(sum(sol) / N)
+    return f"Greedy: N = {N}, m = {m} took {seconds_elapsed} seconds, or {seconds_elapsed/60} minutes"
 
 
 def main():
-    N = 7
-    m = 10*N
-    M = random_M(1, N, m)
+    N1 = 100
+    m1 = 100*N1
+    M1 = random_M(2, N1, m1)
+    experiment1 = solve_time(M1, N1, m1)
+    print("Experiment1", experiment1)
 
-    solve_time(M, N, m)
+    N2 = 100
+    m2 = 500*N2
+    M2 = random_M(2, N2, m2)
+    experiment2 = solve_time(M2, N2, m2)
+    print("Experiment2",experiment2)
+    
+    N3 = 100
+    m3 = 1000*N3
+    M3 = random_M(2, N3, m3)
+    experiment3 = solve_time(M3, N3, m3)
+    print("Experiment3",experiment3)
 
 
 

@@ -10,6 +10,7 @@ def greedy_approx(M):
                 triple[1] == choice[1] or
                 triple[2] == choice[2]):
                 overlap = True
+                break
         if overlap:
             sol.append(0)
         else:

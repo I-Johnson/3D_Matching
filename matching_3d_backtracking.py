@@ -11,8 +11,8 @@ class MatchingNode(ComputationTreeNode):
     def get_children(self):
         children = []
         if len(self.Q) < len(self.solver.M):
-            children.append(MatchingNode(self.solver, self.Q + [0]))
             children.append(MatchingNode(self.solver, self.Q + [1]))
+            children.append(MatchingNode(self.solver, self.Q + [0]))
         return children
     
     def is_promising(self) -> bool:
