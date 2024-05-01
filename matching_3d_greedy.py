@@ -15,7 +15,6 @@ def greedy_approx(M):
         else:
             sol.append(1)
             selection.append(triple)
-    
     return sol
 
 

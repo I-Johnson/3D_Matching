@@ -22,8 +22,6 @@ def random_M(r_seed: int, N: int, m: int):
     random.seed(r_seed)
 
     M = []
-    N = 6
-    m = 36*N
     i = 0
     while i < m:
         triple = (random.randint(1, N), random.randint(1, N), random.randint(1, N))
