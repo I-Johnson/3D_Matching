@@ -41,11 +41,18 @@ def solve_time(M, N, m):
 
 
 def main():
-    N = 7
-    m = 10*N
-    M = random_M(1, N, m)
+    N1 = 100
+    m1= 100*N1
+    M1 = random_M(1, N1, m1)
 
-    solve_time(M, N, m)
+    solve_time(M1, N1, m1)
+
+    # N2 = 20
+    # m2= N2**3
+    # M2 = random_M(1, N2, m2)
+
+    # solve_time(M1, N1, m1)
+    # solve_time(M2, N2, m2)
 
 
 
