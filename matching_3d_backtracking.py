@@ -1,4 +1,7 @@
 from backtracking_abc import *
+import time
+import sys 
+import random
 
 class MatchingNode(ComputationTreeNode):
     def __init__(self, solver, Q):
@@ -7,8 +10,9 @@ class MatchingNode(ComputationTreeNode):
 
     def get_children(self):
         children = []
-        children.append(MatchingNode(self.solver, self.Q + [0]))
-        children.append(MatchingNode(self.solver, self.Q + [1]))
+        if len(self.Q) < len(self.solver.M):
+            children.append(MatchingNode(self.solver, self.Q + [0]))
+            children.append(MatchingNode(self.solver, self.Q + [1]))
         return children
     
     def is_promising(self) -> bool:
@@ -23,8 +27,9 @@ class MatchingNode(ComputationTreeNode):
         return True        
     
     def is_complete_solution(self) -> bool:
-        return len(self.Q) == len(self.solver.M) or sum(self.Q) == self.solver.N
-    
+        #return len(self.Q) == len(self.solver.M) or sum(self.Q) == self.solver.N
+        return sum(self.Q) == self.solver.N
+
     def write_solution(self) -> None:
         self.solver.solutions.append(self.Q)
         
@@ -35,8 +40,20 @@ class MatchingSolver(BacktrackingSolver):
         self.N = N
         self.solutions = []
 
+    def check_node(self, node):
+        if self.solutions == []:
+            if node.is_promising():
+                if node.is_complete_solution():
+                    # Writes all feasible solutions.
+                    #print("Solution found at", time.time())
+                    node.write_solution()
+                else:
+                    for child in node.get_children():
+                        self.check_node(child)
+
     def get_root_node(self):
         return MatchingNode(self, [])
+        
     
     def find_solutions(self):
         self.check_node(self.get_root_node())
@@ -66,10 +83,6 @@ def main():
     solve.find_solutions()
     '''
 
-    import time
-    import sys 
-
-    import random
     #random.seed(1)
     #random.seed(2)
     random.seed(3)
@@ -87,10 +100,11 @@ def main():
     solve = MatchingSolver(M,N)
     solve.find_solutions()
 
+    seconds_elapsed = time.time() - start_time
     #seconds
-    print(time.time() - start_time)
+    print(seconds_elapsed)
     # units in minutes
-    print((time.time() - start_time)/60)
+    print(seconds_elapsed/60)
 
 if __name__ == "__main__":
     main()
