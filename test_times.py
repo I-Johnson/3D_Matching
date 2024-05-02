@@ -2,34 +2,22 @@
 import random
 import sys
 import time
+import itertools
 from matching_3d_backtracking import *
 from matching_3d_greedy import *
+sys.setrecursionlimit(50000)
 
-'''
-# Testing some ways to remove duplicates
-l = [1,2,3,3,5,2,9,4,6,12,5,8]
 
-print(l)
-print(list(set(l)))
-
-res = []
-[res.append(x) for x in l if x not in res]
-print(res)
-'''
+def random_M_for(r_seed: int, N: int, m: int):
+    random.seed(r_seed)
+    M = []
+    for i in range(m):
+        M.append((random.randint(1,N),random.randint(1,N),random.randint(1,N)))
+    return M
 
 def random_M(r_seed: int, N: int, m: int):
-    sys.setrecursionlimit(50000)
     random.seed(r_seed)
-
-    M = []
-    i = 0
-    while i < m:
-        triple = (random.randint(1, N), random.randint(1, N), random.randint(1, N))
-        if triple not in M:
-            M.append(triple)
-            i += 1
-    
-    return M
+    return random.sample(list(itertools.product(range(N), repeat = 3)), k = m)
 
 def solve_time(M, N, m):
     '''
@@ -42,22 +30,23 @@ def solve_time(M, N, m):
     '''
 
     #Timing Greedy
+    print("Starting time")
     start_time = time.time()
     sol = greedy_approx(M)
     end_time = time.time()
     print(sum(sol) / N)
     seconds_elapsed = end_time - start_time
-    #print(sum(sol) / N)
     return f"Greedy: N = {N}, m = {m} took {seconds_elapsed} seconds, or {seconds_elapsed/60} minutes"
 
 
 def main():
-    N1 = 100
-    m1 = 100*N1
+    N1 = 11
+    m1 = N1**3
     M1 = random_M(2, N1, m1)
     experiment1 = solve_time(M1, N1, m1)
     print("Experiment1", experiment1)
 
+    '''
     N2 = 100
     m2 = 500*N2
     M2 = random_M(2, N2, m2)
@@ -69,6 +58,7 @@ def main():
     M3 = random_M(2, N3, m3)
     experiment3 = solve_time(M3, N3, m3)
     print("Experiment3",experiment3)
+    '''
 
 
 
