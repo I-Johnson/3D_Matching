@@ -90,7 +90,7 @@ def main():
     #for i in range(4,13):
     #    run_experiment_BT(i)
 
-    for j in range(100, 801, 50):
+    for j in range(400, 801, 50):
         run_experiment_greedy(j)
     
     print("Experiments completed and data saved to CSV.")
