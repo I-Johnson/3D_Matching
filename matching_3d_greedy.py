@@ -1,7 +1,8 @@
 # Greedy approximation for 3D matching problem
 
 def greedy_approx(M):
-    sol = []
+    #sol = []
+    count = 0
     selection = []
     for triple in M:
         overlap = False
@@ -11,12 +12,14 @@ def greedy_approx(M):
                 triple[2] == choice[2]):
                 overlap = True
                 break
-        if overlap:
-            sol.append(0)
-        else:
-            sol.append(1)
+        if not overlap:
+            #sol.append(1)
+            count += 1
             selection.append(triple)
-    return sol
+        #else:
+            #sol.append(0)
+
+    return count
 
 
 # considerating sorting based on frequency
@@ -43,7 +46,7 @@ def main():
          ("bulldog", "orange", "hamster")]
         
 
-    #solution will be [0,1,1,1,0]
+    #optimal solution will be [0,1,1,1,0]
 
     print(greedy_approx(M))
     
